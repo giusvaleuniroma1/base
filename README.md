@@ -13,7 +13,7 @@ Here are inserted the most used libraries with the same version.
 
 ## Getting Started
 
-1. Clone the project:
+1. Clone the project
 
 2. Build the project using Maven:
 
@@ -27,30 +27,30 @@ Here are inserted the most used libraries with the same version.
 
     - Follow the Docker installation instructions for your operating system: [Docker Installation Guide](https://docs.docker.com/get-docker/)
 
-4. Run RabbitMQ in a Docker container:
-
+4. Download and run the RabbitMQ container:
     ```bash
-    docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+    #Run the following commands with a user that has the permissions to use docker (or superuser)
+    docker pull rabbitmq:3-management
+    docker run --rm -it -p 15672:15672 -p 5672:5672 rabbitmq:3-management
     ```
 
-    This command pulls and starts the RabbitMQ Docker container.
+5. Setup the RabbitMQ queue:
+    - Going on [RabbitMQ Management Console] (http://localhost:15672) and login with the default user (username = guest, password = guest)
+    - Going on [Queue setup] (http://localhost:15672/#/queues) and instance a new queue named **rabbitmq**
 
-    Setup the rabbitmq queue in the management console
-
-5. Configure RabbitMQ in your Spring Boot application:
+6. Configure RabbitMQ in your Spring Boot application:
 
     Open the `application.properties` file and set the RabbitMQ connection properties:
 
     ```properties
-    spring.rabbitmq.host=localhost
-    spring.rabbitmq.port=5672
-    spring.rabbitmq.username=guest
-    spring.rabbitmq.password=guest
+    spring.rabbitmq.host=localhost # Change this value in production
+    spring.rabbitmq.port=5672      # Change this value in production
+    spring.rabbitmq.username=guest # Change this value in production
+    spring.rabbitmq.password=guest # Change this value in production
     ```
-
     Ensure that `spring.rabbitmq.host` matches the name or IP address of your RabbitMQ container.
 
-6. Start your Spring Boot application:
+7. Start your Spring Boot application:
 
     ```bash
     mvn spring-boot:run
@@ -59,13 +59,44 @@ Here are inserted the most used libraries with the same version.
     The application should start, producing and consuming messages to/from RabbitMQ.
 
 ## Usage
+  - Open your browser and going on http://localhost:8080
 
-    Open your browser and going on http://localhost:8080
-    Here you can see the SHA256 if a random string, and if is the same of the SHA256 that appears on the terminal, the application is setupped right!
+  - When the page is loaded in you can see a SHA-256 string, that is computed at runtime from the Producer spring component **RabbitMQProducer**. 
 
+  - The hased string is sent from the Producer to the Consumer **RabbitMqConsumer** through the rabbitmq queue (step 5), then is printed by the Consumer in the terminal.
+    
+  - If the SHA-256 code is the same (browser and terminal) the application works well!
+  
+## Contribution guidelines
+   
+   Thank you for considering contributing to our project!
 
-## Contributing
+   ### Who Can Contribute?
+   Only Students: Contributions are limited to individuals currently enrolled as students in the university or institution associated with this project.
+    
+   ### How to Contribute?
+   - Fork the Repository
+   - Make Changes: Make your changes or improvements locally.
+   - Create a Pull Request: When you are ready to contribute your changes, create a pull request. Please ensure your pull request adheres to the project's guidelines.
 
+   ### Contributors:
+   - Giuseppe Valente
+   - Natalia Maria Mucha
+   - Md Anower Hossain
+   - Antonio Ciprani
+
+## Code Ownership:
+    
+### Exclusive to Students:
+While others are encouraged to download, use, and even edit this project, we only accept code contributions from students directly associated with this university project.
+    
+### Reporting Issues:
+If you encounter issues or have suggestions, feel free to open an issue. However, keep in mind that direct code contributions are limited to students.
+    
+### Note:
+By participating in this project, you acknowledge and agree to the contribution guidelines outlined above. Non-student contributors are encouraged to use the project, provide feedback, and suggest improvements through issues.
+
+Thank you for understanding and respecting our contribution policies. We appreciate your interest in our project!
 
 ## License
 
